@@ -38,6 +38,10 @@ This repository contains the implementation of our diagnostic framework that int
 There are several alternatives to installation, depending on your needs and preferences. Our recommendation and personal preference is to use <b>containers</b> for reproducibility and consistency across different environments. We have provided both a <b>Dockerfile</b> for this purpose which uses the <b>mamba</b> package manager to create the environments. It utilizes the same <code>environment.yml</code> file that could also be used to create a local conda environment if desired. Additionally, we provide a <code>requirements.txt</code> file for those who prefer to use <code>pip</code> for package management. All necessary files to install the required dependencies are found in the <span style="color:dodgerblue; text-decoration:underline;">build</span> directory.
 
 ## ⚙️ docker
+Docker is a widely adopted platform for automating the deployment and management of containerized applications. It is suitable for users familiar with containers or those needing an isolated runtime environment.
+
+Click [here](https://www.docker.com/get-started/
+) for Installation Instructions
 
 ## 📂 Dataset
 For the combustion engine dataset, we use the no-fault data from the 
@@ -59,27 +63,39 @@ In [`utils/data_utils`](utils/data_utils), you will find the necessary functiona
 
 ## 🚀 Usage
 
-The workflow is managed by [`run_script.py`](run_script.py), which sets seeds, launches training (`main.py`)(main.py) and evaluation (`Evaluate.py`)(Evaluate.py). Make sure to pass experiment hyperparameters (schedulers setting, ensemble properties, etc.) through command-line arguments.
+The workflow is managed by <code>run_script.py</code>, which sets seeds, launches training <code>main.py</code> and evaluation <code>Evaluate.py</code>. Make sure to pass experiment hyperparameters (schedulers setting, ensemble properties, etc.) through command-line arguments.
 
 <p align="center">
   <img src="Assets/Scheduler.png" alt="Two-phase training scheduler with increasing horizon for stability." width="400"/>
   <br/>
-  <em>Two-phase training scheduler with increasing horizon for stability.</em>
+  <em>Two-phase training scheduler with increasing horizon.</em>
 </p>
 
 
-$ python run_script.py
+```bash
+python run_script.py
+```
 
-Alternatively you can use the pre-trained models included in saved_models to evaluate your results using the [`Engine.ipynb`](Engine.ipynb).
+Alternatively you can use the pre-trained models included in saved_models to evaluate your results using the <code>Engine.ipynb</code>.
+
+<p align="center">
+  <img src="Assets/Engine_results.png" alt="Fault isolation performance results" width="400"/>
+  <br/>
+  <em>Fault isolation performance results.</em>
+</p>
 
 ## 📚 Related Work
 We have been working with neural network residual generation in several research projects, resulting in multiple published papers. If you're interested in learning more about our findings, please refer to the following publications:
- 
+
+ - Mohammadi, A., *et al.* **“Consistency-based diagnosis using data-driven residuals and limited training data”**, *Control Engineering Practice*, 2025. [Link to paper](https://www.sciencedirect.com/science/article/pii/S0967066125000462)
+ - Mohammadi, A., *et al.* **“Analysis of Numerical Integration in RNN-Based Residuals for Fault Diagnosis of Dynamic Systems”**, *Journal Name*, Year. [Link to paper](https://www.sciencedirect.com/science/article/pii/S2405896323018190)
+
+
 ## 📝 Cite
 If you find the contents of this repository helpful, please consider citing the papers mentioned in the related work section.
 ## 🤝 Contributing
-We welcome contributions to the project, and we encourage you to submit pull requests with new features, bug fixes, or improvements. Any form of collaboration is appreciated, and we are open to suggestions for new features or changes to the existing codebase.
-Feel free to email us if you have any questions or notice any issues with the code.
+We welcome contributions to the project, and we encourage you to submit pull requests with new features, bug fixes, or improvements. Any form of collaboration is appreciated, and we are open to suggestions for new features or changes to the existing codebase.  
+Feel free to [email us](mailto:armanmohammadi7394@gmail.com) if you have any questions or notice any issues with the code.
 ## License
 
 Apache License 2.0 — see [`LICENSE`](LICENSE) for details.
