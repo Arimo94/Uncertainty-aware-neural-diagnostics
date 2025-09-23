@@ -1,0 +1,23 @@
+name: app
+channels:
+  - conda-forge
+  - pytorch
+dependencies:
+  - python=3.11
+  - numpy
+  - scipy
+  - tqdm
+  - matplotlib
+  - pandas
+  - jupyterlab
+  - ipywidgets
+  - scikit-learn
+  - pyqt
+  - pip
+  - pytorch
+  - torchvision
+  - pip:
+      - torchdiffeq
+      - pytorch-lightning
+      - wandb
+      - faultdiagnosistoolbox

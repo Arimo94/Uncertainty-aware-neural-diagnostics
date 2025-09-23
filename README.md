@@ -12,13 +12,13 @@
 This repository contains the implementation of our diagnostic framework that integrates **ensemble probabilistic machine learning** into **consistency-based fault diagnosis**. We supply a baseline model that can be used to train and evaluate the residuals on our open combustion engine dataset, but the code can be easily modified to work with other datasets and models. The code utilizes [PyTorch](https://pytorch.org/docs/stable/index.html) for its functionality.
 
 <p align="center">
-  <img src="Assets/Model_based_schematic.png" alt="Visualization of consistency based diagnosis logic." width="500"/>
+  <img src="Assets/Model_based_schematic.jpg" alt="Visualization of consistency based diagnosis logic." width="500"/>
   <br/>
   <em>Visualization of consistency based diagnosis logic.</em>
 </p>
 
 <p align="center">
-  <img src="Assets/Framework_overview.jpg" alt="Visualization of proposed framewor." width="400"/>
+  <img src="Assets/Framework_overview.jpg" alt="Visualization of proposed framewor." width="500"/>
   <br/>
   <em>Visualization of proposed framework.</em>
 </p>
@@ -35,13 +35,11 @@ This repository contains the implementation of our diagnostic framework that int
 
 ## ⚙️ Installation
 
-There are several alternatives to installation, depending on your needs and preferences. Our recommendation and personal preference is to use <b>containers</b> for reproducibility and consistency across different environments. We have provided both a <b>Dockerfile</b> for this purpose which uses the <b>mamba</b> package manager to create the environments. It utilizes the same <code>environment.yml</code> file that could also be used to create a local conda environment if desired. Additionally, we provide a <code>requirements.txt</code> file for those who prefer to use <code>pip</code> for package management. All necessary files to install the required dependencies are found in the <span style="color:dodgerblue; text-decoration:underline;">build</span> directory.
+There are several alternatives to installation, depending on your needs and preferences. Our recommendation and personal preference is to use <b>containers</b> for reproducibility and consistency across different environments. We have provided both a <b>Dockerfile</b> for this purpose which uses the <b>mamba</b> package manager to create the environments. It utilizes the same <code>environment.yml</code> file that could also be used to create a local conda environment if desired. Additionally, we provide a <code>requirements.txt</code> file for those who prefer to use <code>pip</code> for package management. All necessary files to install the required dependencies are found in the [`build`](build) directory.
 
 ## ⚙️ docker
 Docker is a widely adopted platform for automating the deployment and management of containerized applications. It is suitable for users familiar with containers or those needing an isolated runtime environment.
-
-Click [here](https://www.docker.com/get-started/
-) for Installation Instructions
+Click [here](https://www.docker.com/get-started/) for Installation Instructions
 
 ## 📂 Dataset
 For the combustion engine dataset, we use the no-fault data from the 
@@ -65,18 +63,42 @@ In [`utils/data_utils`](utils/data_utils), you will find the necessary functiona
 
 The workflow is managed by <code>run_script.py</code>, which sets seeds, launches training <code>main.py</code> and evaluation <code>Evaluate.py</code>. Make sure to pass experiment hyperparameters (schedulers setting, ensemble properties, etc.) through command-line arguments.
 
+```bash
+python run_script.py
+```
+
+## Modeling
+Most of the modules are all based on a simple LSTM architecture with probabilistic output. 
+
+```bash
+class Probabilistic_RNN(nn.Module):
+    def __init__(self, input_dim):
+        super(Probabilistic_RNN, self).__init__()
+        self.lstm = nn.LSTM(input_dim, 64, num_layers = 1, batch_first=True)
+        self.fc_mean = nn.Linear(64, 1)
+        self.fc_std = nn.Linear(64, 1)
+    
+    def forward(self, x):
+        lstm_out, _ = self.lstm(x)
+        mean = self.fc_mean(lstm_out)
+        std = torch.log(1 + torch.exp(self.fc_std(lstm_out)))
+        return mean, std
+```
+
+The architecture is designed to be modified using standalone configuration files provided in the [`residuals`](residuals) directory, which are loaded into the model classes. Consult the [📚 Related Work](#-related-work), to get more information on this matter.
+
+## Scheduler
+The scheduler is designed to change the objective from MSE loss to Negative Log Likelihood, the prediction horizon of the regression model is increased as the training evolves due to stability issues encountered in the long workshop test setups.
+
 <p align="center">
   <img src="Assets/Scheduler.png" alt="Two-phase training scheduler with increasing horizon for stability." width="400"/>
   <br/>
   <em>Two-phase training scheduler with increasing horizon.</em>
 </p>
 
-
-```bash
-python run_script.py
-```
-
-Alternatively you can use the pre-trained models included in saved_models to evaluate your results using the <code>Engine.ipynb</code>.
+## Evaluation
+The trained models will be saved in [`save_models`](save_models), which includes each individual trained model alongside the ensembled results evaluated on the test data set.
+Alternatively you can use the pre-trained models to evaluate your results using the <code>Engine.ipynb</code>.
 
 <p align="center">
   <img src="Assets/Engine_results.png" alt="Fault isolation performance results" width="400"/>
@@ -92,7 +114,7 @@ We have been working with neural network residual generation in several research
 
 
 ## 📝 Cite
-If you find the contents of this repository helpful, please consider citing the papers mentioned in the related work section.
+If you find the contents of this repository helpful, please consider citing the papers mentioned in the [📚 Related Work](#-related-work) section.
 ## 🤝 Contributing
 We welcome contributions to the project, and we encourage you to submit pull requests with new features, bug fixes, or improvements. Any form of collaboration is appreciated, and we are open to suggestions for new features or changes to the existing codebase.  
 Feel free to [email us](mailto:armanmohammadi7394@gmail.com) if you have any questions or notice any issues with the code.
