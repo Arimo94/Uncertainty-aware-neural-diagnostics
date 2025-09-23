@@ -1,0 +1,9 @@
+Training Settings
+=================
+r: r_2097_85
+M: 10
+n_epochs_MSE: 300
+n_epochs_NLL: 200
+initial_seq_length: 100
+max_seq_length: 800
+seq_length_step: 100
