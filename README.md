@@ -25,13 +25,13 @@ This repository contains the implementation of our diagnostic framework that int
 
 ---
 
-- [Installation](#installation)
-  - [Docker](#docker)
-- [Dataset](#dataset)
-- [Usage](#usage)
-- [Related Work](#related-work)
-- [Cite](#cite)
-- [Contributing](#contributing)
+- [⚙️ Installation](#installation)
+  - [🐳 Docker](#docker)
+- [📂 Dataset](#dataset)
+- [🚀 Usage](#usage)
+- [📚 Related Work](#related-work)
+- [📝 Cite](#cite)
+- [🤝 Contributing](#contributing)
 
 ## ⚙️ Installation
 
