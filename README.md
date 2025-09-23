@@ -35,15 +35,15 @@ This repository contains the implementation of our diagnostic framework that int
 
 ## ⚙️ Installation
 
-There are several alternatives to installation, depending on your needs and preferences. Our recommendation and personal preference is to use <b>containers</b> for reproducibility and consistency across different environments. We have provided both a <b>Dockerfile</b> for this purpose which uses the <b>mamba</b> package manager to create the environments. It utilizes the same <code>environment.yml</code> file that could also be used to create a local conda environment if desired. Additionally, we provide a <code>requirements.txt</code> file for those who prefer to use <code>pip</code> for package management. All necessary files to install the required dependencies are found in the [`build`](build) directory.
+There are several alternatives to installation, depending on your needs and preferences. Our recommendation and personal preference is to use <b>containers</b> for reproducibility and consistency across different environments. We have provided a <code>Dockerfile</code> for this purpose which uses the <b>mamba</b> package manager to create the environments. It utilizes the same <code>environment.yml</code> file that could also be used to create a local conda environment if desired. Additionally, we provide a <code>requirements.txt</code> file for those who prefer to use <code>pip</code> for package management. All necessary files to install the required dependencies are found in the [`build`](build) directory.
 
-## ⚙️ docker
+## <img src="https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png" alt="docker logo" width="30"/> Docker
 Docker is a widely adopted platform for automating the deployment and management of containerized applications. It is suitable for users familiar with containers or those needing an isolated runtime environment.
 Click [here](https://www.docker.com/get-started/) for Installation Instructions
 
 ## 📂 Dataset
-For the combustion engine dataset, we use the no-fault data from the 
-The baseline configuration targets an open **LiU-ICE Industrial Fault Diagnosis Benchmark**, available [here](https://vehsys.gitlab-pages.liu.se/diagnostic_competition/). Replace the data path in your configs to use your own dataset.
+This project uses the no-fault data from the baseline configuration of the [LiU-ICE Industrial Fault Diagnosis Benchmark](https://vehsys.gitlab-pages.liu.se/diagnostic_competition/).
+Replace the data path in your configs to use your own dataset.
 
 <p align="center">
   <img src="Assets/Engine_dataset.png" alt="Schematic and actual presentation of engine air path." width="600"/>
@@ -52,7 +52,7 @@ The baseline configuration targets an open **LiU-ICE Industrial Fault Diagnosis 
 </p>
 
 ## Data Loading ##
-In [`utils/data_utils`](utils/data_utils), you will find the necessary functionality for processing and loading the data into PyTorch training pipelines. It includes:
+In [`utils/data_utils.py`](utils/data_utils.py), you will find the necessary functionality for processing and loading the data into PyTorch training pipelines. It includes:
 
 <code>create_sequence</code>: A functionality that provides the proper loading format for scheduler.
 
@@ -61,7 +61,7 @@ In [`utils/data_utils`](utils/data_utils), you will find the necessary functiona
 
 ## 🚀 Usage
 
-The workflow is managed by <code>run_script.py</code>, which sets seeds, launches training <code>main.py</code> and evaluation <code>Evaluate.py</code>. Make sure to pass experiment hyperparameters (schedulers setting, ensemble properties, etc.) through command-line arguments.
+The workflow is managed by [run_script.py](run_script.py), which sets seeds, launches training [main.py](main.py) and evaluation [Evaluate.py](Evaluate.py). Make sure to pass experiment hyperparameters (schedulers setting, ensemble properties, etc.) through command-line arguments.
 
 ```bash
 python run_script.py
@@ -98,7 +98,7 @@ The scheduler is designed to change the objective from MSE loss to Negative Log 
 
 ## Evaluation
 The trained models will be saved in [`save_models`](save_models), which includes each individual trained model alongside the ensembled results evaluated on the test data set.
-Alternatively you can use the pre-trained models to evaluate your results using the <code>Engine.ipynb</code>.
+Alternatively you can use the pre-trained models to evaluate your results using the [Engine.ipynb](Engine.ipynb).
 
 <p align="center">
   <img src="Assets/Engine_results.png" alt="Fault isolation performance results" width="400"/>
