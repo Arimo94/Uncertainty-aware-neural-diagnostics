@@ -110,7 +110,7 @@ Alternatively you can use the pre-trained models to evaluate your results using 
 We have been working with neural network residual generation in several research projects, resulting in multiple published papers. If you're interested in learning more about our findings, please refer to the following publications:
 
  - Mohammadi, A., *et al.* **“Consistency-based diagnosis using data-driven residuals and limited training data”**, *Control Engineering Practice*, 2025. [Link to paper](https://www.sciencedirect.com/science/article/pii/S0967066125000462)
- - Mohammadi, A., *et al.* **“Analysis of Numerical Integration in RNN-Based Residuals for Fault Diagnosis of Dynamic Systems”**, *Journal Name*, Year. [Link to paper](https://www.sciencedirect.com/science/article/pii/S2405896323018190)
+ - Mohammadi, A., *et al.* **“Analysis of Numerical Integration in RNN-Based Residuals for Fault Diagnosis of Dynamic Systems”**, *IFAC 2023*, Year. [Link to paper](https://www.sciencedirect.com/science/article/pii/S2405896323018190)
 
 
 ## 📝 Cite
